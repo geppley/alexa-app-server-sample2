@@ -1,4 +1,5 @@
 'use strict';
+module.change_code = 1;
 var _ = require('lodash');
 var rp = require('request-promise');
 var ENDPOINT = 'http://services.faa.gov/airport/status/';
@@ -9,6 +10,8 @@ function FAADataHelper() {
 FAADataHelper.prototype.requestAirportStatus = function(airportCode) {
   return this.getAirportStatus(airportCode).then(
     function(response) {
+		
+		setTimeout(function(){console.log(response)},3000);
       console.log('success - received airport info for ' + airportCode);
       return response.body;
     }
@@ -43,7 +46,7 @@ FAADataHelper.prototype.formatAirportStatus = function(airportStatus) {
     });
   } else {
     //no delay
-    return _.template('There is currently no delay at ${airport}. ${weather}')({
+    return _.template('Listen up dude, there is currently no delay at ${airport}. ${weather}')({
       airport: airportStatus.name,
       weather: weather
     });

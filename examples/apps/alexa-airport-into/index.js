@@ -28,7 +28,7 @@ app.intent('airportinfo', {
 	 function(req, res) {
 		//get the slot
 		var airportCode = req.slot('AIRPORTCODE');
-		var reprompt = 'Tell me an airport code to get delay information.';
+		var reprompt = 'Hey buddy, tell me an airport code to get delay information.';
 
 		if (_.isEmpty(airportCode)) {
 
@@ -43,8 +43,9 @@ app.intent('airportinfo', {
 			var faaHelper = new FAADataHelper();
 
 			faaHelper.requestAirportStatus(airportCode).then(function(airportStatus) {
+				console.log(res);
 
-				console.log(airportStatus);
+				//console.log(airportStatus);
 
 				res.say(faaHelper.formatAirportStatus(airportStatus)).send();
 
